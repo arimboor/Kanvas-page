@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Software</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-text {
+            max-width: 800px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #5a4fcf;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .download-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-github {
+            background: #24292e;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-github:hover {
+            background: #1b1f23;
+            color: white;
+            text-decoration: none;
+        }
+
+        .privacy-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .privacy-text a {
+            color: #5a4fcf;
+            text-decoration: none;
+        }
+
+        .hero-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(90, 79, 207, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .features-label {
+            color: #5a4fcf;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .features-description {
+            font-size: 1.1rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Feature Cards */
+        .feature-section {
+            margin-bottom: 80px;
+        }
+
+        .feature-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .feature-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .feature-text p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 25px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            color: #6c757d;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 30px;
+            font-size: 1rem;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            background: #e8f5e8;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .feature-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-image img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Modal for full-screen image */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .modal img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(255,255,255,0.1);
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Mobile Interface Mockup */
+        .mobile-interface {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .mobile-device {
+            width: 200px;
+            background: #333;
+            border-radius: 25px;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .mobile-screen {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            height: 400px;
+            position: relative;
+        }
+
+        .mobile-header {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .mobile-content {
+            padding: 20px;
+        }
+
+        .mobile-chat {
+            background: #5a4fcf;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            margin-left: auto;
+        }
+
+        .mobile-response {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                gap: 30px;
+            }
+
+            .feature-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .feature-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .mobile-interface {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .close {
+                font-size: 30px;
+                top: 15px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Kanvas for Incident Response </h1>
+                    <p>The best customer service software for customer-first teams. Industry-leading email and live chat support.</p>
+                    
+                    <div class="download-section">
+                        <a href="https://github.com/arimboor/Kanvas-Incident-Response" class="btn-github" target="_blank">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            Download from GitHub
+                        </a>
+                    </div>
+                    
+                    <p class="privacy-text">
+                        We care about your data in our <a href="#">privacy policy</a>.
+                    </p>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="ui.png" alt="Customer Service Dashboard" onclick="openModal(this)" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-header">
+                <div class="features-label">Features</div>
+                <h2>Beautiful analytics to grow smarter</h2>
+                <p class="features-description">
+                    Powerful, self-serve product and growth analytics to help you convert, engage, and retain more users. Trusted by over 4,000 startups.
+                </p>
+            </div>
+
+            <!-- Share Team Inboxes Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-text">
+                        <h3>Incident Timeline</h3>
+                        <p>Building timelines from Excel manually? Nah, I’d rather wrestle a raccoon. At least that’s over faster.</p>
+                        <ul class="feature-list">
+                            <li>Making it all automatic, not manual.</li>
+                            <li>Only picking the interesting parts from the sheet (not everything).</li>
+                            <li>Segmenting the timeline based on days (like Day 1, Day 2, etc.).</li>
+                            <li>Quicky export to PNG or CSV for Reporting / Presenatation.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-image">
+                        <img src="timeline.png" alt="Team Inbox Dashboard" onclick="openModal(this)" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deliver Instant Answers Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-image">
+                        <img src="lm.png" alt="Lateral Movement" onclick="openModal(this)" />
+                    </div>
+                    
+                    <div class="feature-text">
+                        <h3>Lateral movement</h3>
+                        <p>Trying to explain what’s going on without a visual? It's like describing a movie scene using just smoke signals. A timeline chart just makes life so much easier.</p>
+                        <ul class="feature-list">
+                            <li>Automatically whip up the visualization</li>
+                            <li>Pick icons that match your system type</li>
+                            <li>Export the visualization in a snap </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Mapping Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-text">
+                        <h3>MITRE D3FEND Mapping</h3>
+                        <p>Visualize your entire network infrastructure and discover potential attack paths before threat actors do.</p>
+                        <ul class="feature-list">
+                            <li>Real-time network topology mapping</li>
+                            <li>Identify vulnerable network segments</li>
+                            <li>Track asset relationships and dependencies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-image">
+                        <img src="defend.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threat Intelligence Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-image">
+                        <img src="veris.png" alt="Threat Intelligence Platform" onclick="openModal(this)" />
+                    </div>
+                    
+                    <div class="feature-text">
+                        <h3>Markdown Support</h3>
+                        <p>Stay ahead of emerging threats with integrated threat intelligence feeds and automated indicator enrichment.</p>
+                        <ul class="feature-list">
+                            <li>Real-time threat feed integration</li>
+                            <li>Automated IOC enrichment and analysis</li>
+                            <li>Custom threat hunting playbooks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+                        <!-- Network Mapping Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-text">
+                        <h3>MITRE D3FEND Mapping</h3>
+                        <p>Visualize your entire network infrastructure and discover potential attack paths before threat actors do.</p>
+                        <ul class="feature-list">
+                            <li>Real-time network topology mapping</li>
+                            <li>Identify vulnerable network segments</li>
+                            <li>Track asset relationships and dependencies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-image">
+                        <img src="markdown.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                    </div>
+                </div>
+            <!-- Threat Intelligence Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-image">
+                        <img src="lookup.png" alt="Threat Intelligence Platform" onclick="openModal(this)" />
+                    </div>
+                    
+                    <div class="feature-text">
+                        <h3>Markdown Support</h3>
+                        <p>Stay ahead of emerging threats with integrated threat intelligence feeds and automated indicator enrichment.</p>
+                        <ul class="feature-list">
+                            <li>Real-time threat feed integration</li>
+                            <li>Automated IOC enrichment and analysis</li>
+                            <li>Custom threat hunting playbooks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+
+                        <!-- Network Mapping Feature -->
+            <div class="feature-section">
+                <div class="feature-content">
+                    <div class="feature-text">
+                        <h3>Bookmarks</h3>
+                        <p>Visualize your entire network infrastructure and discover potential attack paths before threat actors do.</p>
+                        <ul class="feature-list">
+                            <li>Real-time network topology mapping</li>
+                            <li>Identify vulnerable network segments</li>
+                            <li>Track asset relationships and dependencies</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-image">
+                        <img src="bookmarks.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                    </div>
+                </div>
+
+
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer style="background: #2c3e50; color: #ecf0f1; padding: 40px 0; text-align: center;">
+        <div class="container">
+            <div style="border-top: 1px solid #34495e; padding-top: 30px;">
+                <p style="font-size: 1rem; margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    Let’s make something amazing together
+                    <span style="color: #e74c3c; font-size: 1.2rem;">❤️</span>
+                    Powered by coffee and code
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for full-screen image -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImg" src="" alt="Full Screen Image">
+        </div>
+    </div>
+
+    <script>
+        // Simple form handling
+        document.querySelector('.email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('.email-input').value;
+            if (email) {
+                alert('Thank you for your interest! We\'ll be in touch soon.');
+                document.querySelector('.email-input').value = '';
+            }
+        });
+
+        // Modal functionality for full-screen image
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Prevent modal from closing when clicking on the image itself
+        document.getElementById('modalImg').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature sections
+        document.querySelectorAll('.feature-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
