@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Aggressive Cache Busting -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
+    <!-- Ultra-Aggressive Cache Busting -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0, s-maxage=0, proxy-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta name="cache-control" content="no-cache">
-    <meta name="expires" content="0">
+    <meta http-equiv="Expires" content="-1">
+    <meta name="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta name="expires" content="Thu, 01 Jan 1970 00:00:00 GMT">
     <meta name="pragma" content="no-cache">
-    <meta name="last-modified" content="Sat, 05 Oct 2024 12:00:00 GMT">
+    <meta name="last-modified" content="Sat, 05 Oct 2024 23:59:59 GMT">
+    <meta name="etag" content="">
+    <script>document.documentElement.setAttribute('data-timestamp', new Date().getTime());</script>
     <title>KANVAS for DFIR case management tool</title>
 
     <!-- Google Analytics -->
@@ -22,14 +24,23 @@
         gtag('js', new Date());
         gtag('config', 'G-0JW2PMWWPL');
         
-        // Aggressive cache busting
+        // Ultra-aggressive cache busting
         var timestamp = new Date().getTime();
-        console.log('Page loaded at: ' + timestamp);
+        var randomId = Math.random().toString(36).substring(7);
+        console.log('Page loaded at: ' + timestamp + ' ID: ' + randomId);
         
-        // Force reload of cached resources
-        if (performance.navigation.type === 1) {
-            // Page was refreshed
-            window.location.href = window.location.href + '?cb=' + timestamp;
+        // Disable all caching
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        // Force complete reload with cache bypass
+        function forceReload() {
+            window.location.reload(true); // Hard reload
         }
     </script>
 
@@ -413,7 +424,7 @@
                 </div>
 
                 <div class="hero-image">
-                    <img src="images/ui.png?v=20241005" alt="Customer Service Dashboard" onclick="openModal(this)" />
+                    <img src="" data-src="images/ui.png" alt="Customer Service Dashboard" onclick="openModal(this)" />
                 </div>
             </div>
         </div>
@@ -445,7 +456,7 @@
                     </div>
 
                     <div class="feature-image">
-                        <img src="images/timeline.png?v=20241005" alt="Team Inbox Dashboard" onclick="openModal(this)" />
+                        <img src="" data-src="images/timeline.png" alt="Team Inbox Dashboard" onclick="openModal(this)" />
                     </div>
                 </div>
             </div>
@@ -454,7 +465,7 @@
             <div class="feature-section">
                 <div class="feature-content">
                     <div class="feature-image">
-                        <img src="images/lm.png?v=20241005" alt="Lateral Movement" onclick="openModal(this)" />
+                        <img src="" data-src="images/lm.png" alt="Lateral Movement" onclick="openModal(this)" />
                     </div>
 
                     <div class="feature-text">
@@ -482,7 +493,7 @@
                     </div>
 
                     <div class="feature-image">
-                        <img src="images/defend.png?v=20241005" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                        <img src="" data-src="images/defend.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
                     </div>
                 </div>
             </div>
@@ -492,7 +503,7 @@
             <div class="feature-section">
                 <div class="feature-content">
                     <div class="feature-image">
-                        <img src="images/flow.png?v=20241005" alt="Threat Intelligence Platform" onclick="openModal(this)" />
+                        <img src="" data-src="images/flow.png" alt="Threat Intelligence Platform" onclick="openModal(this)" />
                     </div>
 
                     <div class="feature-text">
@@ -523,7 +534,7 @@
                     </div>
 
                     <div class="feature-image">
-                        <img src="images/llm.png?v=20241005" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                        <img src="" data-src="images/llm.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
                     </div>
                 </div>
 
@@ -534,7 +545,7 @@
                 <div class="feature-section">
                     <div class="feature-content">
                     <div class="feature-image">
-                        <img src="images/veris.png?v=20241005" alt="Threat Intelligence Platform" onclick="openModal(this)" />
+                        <img src="" data-src="images/veris.png" alt="Threat Intelligence Platform" onclick="openModal(this)" />
                     </div>                        <div class="feature-text">
                             <h3>V.E.R.I.S. Summary</h3>
                             <p>VERIS is basically a way to keep track of cybersecurity incidents in a simple, consistent way. It helps teams share info about what happened, how it happened, and the damage done so everyone can learn and improve security.</p>
@@ -563,7 +574,7 @@
                         </div>
 
                         <div class="feature-image">
-                            <img src="images/markdown.png?v=20241005" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                            <img src="" data-src="images/markdown.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
                         </div>
                     </div>
 
@@ -573,7 +584,7 @@
                     <div class="feature-section">
                         <div class="feature-content">
                     <div class="feature-image">
-                        <img src="images/lookup.png?v=20241005" alt="Threat Intelligence Platform" onclick="openModal(this)" />
+                        <img src="" data-src="images/lookup.png" alt="Threat Intelligence Platform" onclick="openModal(this)" />
                     </div>                            <div class="feature-text">
                                 <h3>External Lookups</h3>
                                 <p>The external lookup helps the investigator quickly search various threat intel feeds while responding to an incident.</p>
@@ -604,7 +615,7 @@
                             </div>
 
                             <div class="feature-image">
-                                <img src="images/bookmarks.png?v=20241005" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                                <img src="" data-src="images/bookmarks.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
                             </div>
                         </div>
 
@@ -613,7 +624,7 @@
                         <div class="feature-section">
                             <div class="feature-content">
                     <div class="feature-image">
-                        <img src="images/lolbas.png?v=20241005" alt="Threat Intelligence Platform" onclick="openModal(this)" />
+                        <img src="" data-src="images/lolbas.png" alt="Threat Intelligence Platform" onclick="openModal(this)" />
                     </div>                                <div class="feature-text">
                                     <h3>Quick references</h3>
                                     <p>It's hard to keep everything in your muscle memory during an investigation. This module helps you reference things quickly with shortcuts.</p>
@@ -640,7 +651,7 @@
                             </div>
 
                             <div class="feature-image">
-                                <img src="images/stix.png?v=20241005" alt="Network Mapping Dashboard" onclick="openModal(this)" />
+                                <img src="" data-src="images/stix.png" alt="Network Mapping Dashboard" onclick="openModal(this)" />
                             </div>
                         </div>
 
@@ -731,33 +742,44 @@
             observer.observe(section);
         });
 
-        // Additional aggressive cache busting
-        function bustCache() {
+        // Ultra-aggressive dynamic image loading
+        function loadImagesWithCacheBust() {
             var timestamp = new Date().getTime();
-            var images = document.querySelectorAll('img');
+            var randomSuffix = Math.random().toString(36).substring(7);
+            var images = document.querySelectorAll('img[data-src]');
+            
             images.forEach(function(img) {
-                var src = img.src;
-                if (src.indexOf('?') > -1) {
-                    src = src.split('?')[0];
+                var baseSrc = img.getAttribute('data-src');
+                img.src = baseSrc + '?t=' + timestamp + '&r=' + randomSuffix + '&cb=' + Math.random();
+            });
+            
+            // Also update any existing images
+            var existingImages = document.querySelectorAll('img:not([data-src])');
+            existingImages.forEach(function(img) {
+                if (img.src && img.src.includes('images/')) {
+                    var baseSrc = img.src.split('?')[0];
+                    img.src = baseSrc + '?t=' + timestamp + '&r=' + randomSuffix + '&cb=' + Math.random();
                 }
-                img.src = src + '?cb=' + timestamp;
             });
         }
 
-        // Force cache busting on load
-        window.addEventListener('load', function() {
-            setTimeout(bustCache, 100);
-        });
+        // Load images immediately and on every interaction
+        document.addEventListener('DOMContentLoaded', loadImagesWithCacheBust);
+        window.addEventListener('load', loadImagesWithCacheBust);
+        window.addEventListener('focus', loadImagesWithCacheBust);
+        setInterval(loadImagesWithCacheBust, 5000); // Refresh every 5 seconds
 
-        // Add cache-busting parameter to current page URL
-        if (!window.location.search.includes('cb=')) {
-            var currentUrl = window.location.href;
-            var separator = currentUrl.indexOf('?') > -1 ? '&' : '?';
-            var newUrl = currentUrl + separator + 'cb=' + new Date().getTime();
-            if (currentUrl !== newUrl) {
-                window.history.replaceState({}, document.title, newUrl);
-            }
-        }
+        // Ultra-aggressive URL cache busting
+        var urlTimestamp = new Date().getTime();
+        var urlRandom = Math.random().toString(36).substring(7);
+        var currentUrl = window.location.href.split('?')[0]; // Remove existing params
+        var newUrl = currentUrl + '?v=' + urlTimestamp + '&r=' + urlRandom + '&nocache=' + Math.random();
+        window.history.replaceState({}, document.title, newUrl);
+        
+        // Force reload every 30 seconds to bypass any cache
+        setTimeout(function() {
+            window.location.href = window.location.href.split('?')[0] + '?force=' + new Date().getTime();
+        }, 30000);
     </script>
 </body>
 
